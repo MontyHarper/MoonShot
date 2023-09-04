@@ -1,23 +1,23 @@
 //
-//  ContentView.swift
+//  GridLayout.swift
 //  MoonShot
 //
-//  Created by Monty Harper on 9/1/23.
+//  Created by Monty Harper on 9/4/23.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct GridLayout: View {
     
-    @State private var showGridView = true
-    let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
-    let missions: [Mission] = Bundle.main.decode("missions.json")
+    var astronauts: [String: Astronaut]
+    var missions: [Mission]
     
     let columns = [
         GridItem(.adaptive(minimum: 150))
     ]
     
     var body: some View {
+        
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: columns) {
@@ -53,26 +53,16 @@ struct ContentView: View {
                 }
                 .padding([.horizontal,.bottom])
             }
-            .navigationTitle("Moonshot")
-            .background(.darkBackground)
-            .preferredColorScheme(.dark)
-            .toolbar {
-                Button {
-                    showGridView.toggle()
-                } label: {
-                    if showGridView {
-                        Text("List")
-                    } else {
-                        Text("Grid")
-                    }
-                }
-            }
         }
+        .background(.darkBackground)
+        .preferredColorScheme(.dark)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct GridLayout_Previews: PreviewProvider {
+    static let missions: [Mission] = Bundle.main.decode("missions.json")
+    static let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
     static var previews: some View {
-        ContentView()
+        GridLayout(astronauts:astronauts, missions:missions)
     }
 }
